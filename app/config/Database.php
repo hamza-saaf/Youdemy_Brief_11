@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Config;
+namespace App\config;
 
 use Dotenv\Dotenv;
 use PDO;
 use PDOException;
 use Exception;
 
-class DatabaseCon
-{
+class Database{
     private $conn;
 
     public function connection()
@@ -17,17 +16,14 @@ class DatabaseCon
         $dotenv = Dotenv::createImmutable(__DIR__);
         try {
             $dotenv->load();
-            echo 'connect';
+            echo 'Connexion Valide';
         } catch (Exception $e) {
             die("Error loading .env file: " . $e->getMessage());
         }
 
         // Establish PDO connection
         try {
-            $this->conn = new PDO(
-                "mysql:host=" . $_ENV["LOCALHOST"] . ";dbname=" . $_ENV["DATABASE"],
-                $_ENV["USER"],
-                $_ENV["USER_PASSWORD"],
+            $this->conn = new PDO("mysql:host=" . $_ENV["LOCALHOST"] . ";dbname=" . $_ENV["DATABASE"], $_ENV["USER"], $_ENV["USER_PASSWORD"],
                 [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Enable exceptions for errors
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Default fetch mode
@@ -39,3 +35,4 @@ class DatabaseCon
         }
     }
 }
+

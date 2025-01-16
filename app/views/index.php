@@ -35,7 +35,7 @@
             </a>
 
             <!-- Option 2: Création de compte -->
-            <a href="register.php" class="block p-6 bg-white rounded-lg shadow hover:shadow-md transition">
+            <a href="auth/register.php" class="block p-6 bg-white rounded-lg shadow hover:shadow-md transition">
                 <div class="flex items-center">
                     <div class="text-green-500 bg-green-100 p-4 rounded-full">
                         <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
