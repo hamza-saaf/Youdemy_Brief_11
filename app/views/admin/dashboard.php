@@ -1,3 +1,9 @@
+<?php  
+// session_start();
+// if(!isset($_SESSION['users'])){
+// header('Location:../auth/login.php');
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +13,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
+
     <header class="bg-white shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-gray-800">Dashboard Administrateur</h1>
-            <a href="logout.php" class="text-red-500 hover:text-red-600">Déconnexion</a>
+            <h4 class="text-3xl font-bold text-gray-800">Dashboard Admin</h4>
+            <a href="../auth/login.php" class="text-red-500 hover:text-red-600">Déconnexion</a>
         </div>
     </header>
 
