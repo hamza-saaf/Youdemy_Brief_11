@@ -1,6 +1,7 @@
 <?php
 
 namespace App\config;
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 use PDO;
@@ -16,7 +17,6 @@ class Database{
         $dotenv = Dotenv::createImmutable(__DIR__);
         try {
             $dotenv->load();
-            echo 'Connexion Valide';
         } catch (Exception $e) {
             die("Error loading .env file: " . $e->getMessage());
         }
