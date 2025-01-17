@@ -56,6 +56,6 @@ CREATE TABLE enrollments (
 );
 -- Insert roles into the users table for testing purposes
 INSERT INTO users (username, email, password, role) VALUES
-('Hamza_Saaf', 'hamzasaaf725@gmail.com', 'hamza1999', 'admin'),
-('Samir', 'samir500@gmail.com', 'samir1234', 'teacher'),
-('Karim', 'karim2000@gmial.com', 'karim1234', 'student');
+('Hamza_Saaf', 'hamzasaaf725@gmail.com', '1234', 'admin'),
+('Samir', 'samir500@gmail.com', '1234', 'teacher'),
+('Karim', 'karim2000@gmial.com', '1234', 'student');

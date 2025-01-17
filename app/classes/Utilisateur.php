@@ -1,6 +1,7 @@
 <?php
 namespace App\classes;
-class Utilisateur {
+
+class User {
 
     private $name;
     private $email;
@@ -16,7 +17,6 @@ class Utilisateur {
         $this->status = $status;
         $this->role = $role;
     }
-
     // Getters
     public function getName() {
         return $this->name;
