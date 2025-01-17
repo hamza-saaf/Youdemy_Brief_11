@@ -59,3 +59,6 @@ INSERT INTO users (username, email, password, role) VALUES
 ('Hamza_Saaf', 'hamzasaaf725@gmail.com', '1234', 'admin'),
 ('Samir', 'samir500@gmail.com', '1234', 'teacher'),
 ('Karim', 'karim2000@gmial.com', '1234', 'student');
+
+ALTER TABLE users 
+MODIFY COLUMN `status` ENUM('Activation', 'suspension', 'suppression') NOT NULL;

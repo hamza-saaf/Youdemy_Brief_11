@@ -10,7 +10,7 @@
     <header class="bg-white shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <h1 class="text-3xl font-bold text-gray-800">Youdemy</h1>
-            <a href="register.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Créer un compte</a>
+            <a href="../views/auth/register.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Créer un compte</a>
         </div>
     </header>
 
@@ -35,7 +35,7 @@
             </a>
 
             <!-- Option 2: Création de compte -->
-            <a href="auth/register.php" class="block p-6 bg-white rounded-lg shadow hover:shadow-md transition">
+            <a href="../views/auth/register.php" class="block p-6 bg-white rounded-lg shadow hover:shadow-md transition">
                 <div class="flex items-center">
                     <div class="text-green-500 bg-green-100 p-4 rounded-full">
                         <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
