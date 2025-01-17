@@ -10,11 +10,11 @@
     <!-- Header -->
     <header class="bg-white shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-gray-800">Youdemy</h1>
+        <img class="w-40" src="../../../public/images/Udemy_Logo.png" alt="Udemy_Logo">
             <nav>
                 <a href="home.php" class="text-blue-500 hover:text-blue-700 px-4">Accueil</a>
                 <a href="catalogue.php" class="text-blue-500 hover:text-blue-700 px-4">Catalogue</a>
-                <a href="logout.php" class="text-red-500 hover:text-red-700 px-4">Déconnexion</a>
+                <a href="../auth/logout.php" class="text-red-500 hover:text-red-700 px-4">Déconnexion</a>
             </nav>
         </div>
     </header>

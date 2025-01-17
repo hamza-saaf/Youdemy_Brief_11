@@ -10,7 +10,7 @@
     <!-- Header -->
     <header class="bg-white shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-gray-800">Espace Enseignant</h1>
+        <img class="w-40" src="../../../public/images/Udemy_Logo.png" alt="Udemy_Logo">
             <a href="home.php" class="text-blue-600 hover:underline">Retour à l'accueil</a>
         </div>
     </header>

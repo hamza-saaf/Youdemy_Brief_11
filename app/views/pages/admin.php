@@ -18,7 +18,7 @@
 
     <header class="bg-white shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h4 class="text-3xl font-bold text-gray-800">Dashboard Admin</h4>
+        <img class="w-40" src="../../../public/images/Udemy_Logo.png" alt="Udemy_Logo">
             <a href="../auth/login.php" class="text-red-500 hover:text-red-600">Déconnexion</a>
         </div>
     </header>
