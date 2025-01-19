@@ -37,15 +37,15 @@
 
                     switch ($user['role']) {
                         case "admin": {
-                                header("Location:../admin/dashboard.php");
+                                header("Location:../pages/admin.php");
                                 exit();
                             }
                         case "teacher": {
-                                header("Location:../enseignant/home.php");
+                                header("Location:../pages/enseignant.php");
                                 exit();
                             }
                         case "student": {
-                                header("Location:../etudiants/home.php");
+                                header("Location:../pages/etudiants.php");
                                 exit();
                             }
                     }
