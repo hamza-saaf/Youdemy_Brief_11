@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Youdemy-Login</title>
+    <title>Udemy-Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
     <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Connexion à Youdemy</h2>
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Connexion à Udemy</h2>
         <?php
         session_start();
         require_once __DIR__ . '/../../../vendor/autoload.php';
@@ -22,9 +22,8 @@
             $email = $_POST['email'];
             $password = $_POST['password'];
             if (!empty($email) && !empty($password)) {
-                $pdo = new Database();
-                $connection = $pdo->connection();
-                $stmt = $connection->prepare('SELECT * FROM users WHERE email=? AND `password`=?');
+                $pdo = Database::connection();
+                $stmt = $pdo->prepare('SELECT * FROM users WHERE email=? AND `password`=?');
                 $stmt->execute([$email, $password]);
                 $user = $stmt->fetch();
                 if ($user) {
@@ -48,11 +47,11 @@
                                 header("Location:../pages/etudiants.php");
                                 exit();
                             }
-                    }
+                    }  
                 } else {
         ?>
                     <div class="bg-yellow-400 text-white text-sm font-medium p-4 rounded" role="alert">
-                    Invalid password
+                    There was a problem logging in. Check your email or create an account.
                     </div>
                 <?php
                 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Youdemy - Étudiant</title>
+    <title>Udemy - Étudiant</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
@@ -75,7 +75,7 @@
     <!-- Footer -->
     <footer class="bg-white shadow-md py-4 mt-10">
         <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-600">&copy; 2025 Youdemy. Tous droits réservés.</p>
+            <p class="text-gray-600">&copy; 2025 Udemy. Tous droits réservés.</p>
         </div>
     </footer>
 </body>
