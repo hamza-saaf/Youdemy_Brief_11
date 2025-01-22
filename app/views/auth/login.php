@@ -1,93 +1,157 @@
+<?php
+session_start();
+if (isset($_SESSION['user']) ) {
+    switch ($_SESSION['user']['role']) {
+        case 'etudiant':
+            header('Location: ..\student\home.php');
+            break;
+        
+        case 'enseignant':
+            header('Location: ..\teacher\home.php');
+            break;
+        
+        case 'administrateur':
+            header('Location: ..\admin\dashboard.php');
+            break;
+        
+        default:
+            # code...
+            break;
+    }
+}
+
+require '../../../vendor/autoload.php';
+
+use App\Controllers\AuthController;
+use App\Classes\User;
+use App\Services\ServiceValidation;
+
+$auth = new AuthController();
+$validationInstent = new ServiceValidation();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the email and password from the form
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $user = new User('','',$email, $password);
+    $isValid = $validationInstent::loginValidation($user);
+
+    // Call the login method
+    if ($isValid === true) {
+        $auth->login($user);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Udemy-Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-
-    <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Connexion à Udemy</h2>
-        <?php
-        session_start();
-        require_once __DIR__ . '/../../../vendor/autoload.php';
-
-        use App\config\Database;
-
-        if (isset($_POST['connecter'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            if (!empty($email) && !empty($password)) {
-                $pdo = Database::connection();
-                $stmt = $pdo->prepare('SELECT * FROM users WHERE email=? AND `password`=?');
-                $stmt->execute([$email, $password]);
-                $user = $stmt->fetch();
-                if ($user) {
-                    if (password_verify($password, $user['password'])) {
-                        $_SESSION['user_id'] = $user['id'];
-                        $_SESSION['username'] = $user['username'];
-                        $_SESSION['role'] = $user['role'];
-                        $_SESSION['is_logged_in'] = true;
-                    }
-
-                    switch ($user['role']) {
-                        case "admin": {
-                                header("Location:../pages/admin.php");
-                                exit();
-                            }
-                        case "teacher": {
-                                header("Location:../pages/enseignant.php");
-                                exit();
-                            }
-                        case "student": {
-                                header("Location:../pages/etudiants.php");
-                                exit();
-                            }
-                    }  
-                } else {
-        ?>
-                    <div class="bg-yellow-400 text-white text-sm font-medium p-4 rounded" role="alert">
-                    There was a problem logging in. Check your email or create an account.
+<body>
+     <!-- create secces message -->
+     <?php if (isset($_SESSION['success']['message'])): ?>
+                    <span
+                        class="message bg-green-100 text-green-700 px-4 py-2 rounded-md flex items-center gap-2 font-medium shadow-sm border border-red-200 absolute top-4 left-1/2 transform -translate-x-1/2">
+                        <!-- Optional: Add an error icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-700" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <p><?php echo $_SESSION['success']['message']; ?></p>
+                        <?php unset($_SESSION['success']['message']); ?>
+                    </span>
+                <?php endif; ?>
+    <div class="py-5">
+        <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+            <div class="hidden lg:block lg:w-1/2 bg-cover"
+                style="background-image:url('https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80')">
+            </div>
+            <div class="w-full p-8 lg:w-1/2 ">
+                <h2 class="text-2xl font-semibold text-gray-700 text-center">Brand</h2>
+                <p class="text-xl text-gray-600 text-center">Welcome back!</p>
+                <?php if (isset($_SESSION['error']['message'])): ?>
+                    <span
+                        class="message bg-red-100 text-red-700 px-4 py-2 rounded-md flex items-center gap-2 font-medium shadow-sm border border-red-200 absolute top-4 left-1/2 transform -translate-x-1/2">
+                        <!-- Optional: Add an error icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <p><?php echo $_SESSION['error']['message']; ?></p>
+                        <?php unset($_SESSION['error']['message']); ?>
+                    </span>
+                <?php endif; ?>
+                <a href="#"
+                    class="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
+                    <div class="px-4 py-3">
+                        <svg class="h-6 w-6" viewBox="0 0 40 40">
+                            <path
+                                d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
+                                fill="#FFC107" />
+                            <path
+                                d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z"
+                                fill="#FF3D00" />
+                            <path
+                                d="M20 36.6667C24.305 36.6667 28.2167 35.0192 31.1742 32.34L26.0159 27.975C24.3425 29.2425 22.2625 30 20 30C15.665 30 11.9842 27.2359 10.5975 23.3784L5.16254 27.5659C7.92087 32.9634 13.5225 36.6667 20 36.6667Z"
+                                fill="#4CAF50" />
+                            <path
+                                d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
+                                fill="#1976D2" />
+                        </svg>
                     </div>
-                <?php
-                }
-            } else {
-                ?>
-                <div class="bg-red-400 text-white text-sm font-medium p-4 rounded" role="alert">
-                    Email et Mot de passe sont Obligatoires
+                    <h1 class="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">Sign in with Google</h1>
+                </a>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="border-b w-1/5 lg:w-1/4"></span>
+                    <a href="#" class="text-xs text-center text-gray-500 uppercase">or login with email</a>
+                    <span class="border-b w-1/5 lg:w-1/4"></span>
                 </div>
-            <?php
-            }
-        } else {
-            ?>
-            <div class="bg-red-500 text-white text-sm font-medium p-4 rounded" role="alert">
-                Email et Mot de passe sont Obligatoires
+                <form action="" method="POST">
+                    <div class="mt-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
+                        <input name="email"
+                            class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                            type="email" />
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                            <a href="#" class="text-xs text-gray-500">Forget Password?</a>
+                        </div>
+                        <input name="password"
+                            class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                            type="password" />
+                    </div>
+                    <div class="mt-8">
+                        <button
+                            class="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600">Login</button>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <span class="border-b w-1/5 md:w-1/4"></span>
+                        <a href="register.php" class="text-xs text-gray-500 uppercase">or sign up</a>
+                        <span class="border-b w-1/5 md:w-1/4"></span>
+                    </div>
+                </form>
             </div>
-        <?php
-
-        }
-        ?>
-
-        <form method="POST" class="space-y-4">
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail</label>
-                <input type="email" id="email" name="email" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-                <input type="password" id="password" name="password" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition" value="connecter" name="connecter">Se connecter</button>
-        </form>
-        <p class="text-center text-sm text-gray-600 mt-4">
-            Vous n'avez pas de compte ? <a href="register.php" class="text-indigo-600 hover:underline">Inscrivez-vous ici</a>.
-        </p>
+        </div>
     </div>
-
+    <script>
+        const message = document.querySelector('.message');
+        if (message) {
+            setTimeout(() => {
+                message.remove();
+            }, 5000);
+        }
+    </script>
 </body>
 
 </html>
