@@ -1,12 +1,15 @@
 <?php
 
-namespace App\controllers;
+namespace App\Controllers;
 
-use App\models\UserModel;
-use App\classes\User;
+use App\Classes\User;
+use App\Models\UserModel;
 
-class LoginController
+
+
+class AuthController
 {
+
     private UserModel $userModel;
 
     public function __construct()
@@ -14,47 +17,112 @@ class LoginController
         $this->userModel = new UserModel();
     }
 
-    public function login(string $email, string $password): void
+    public function login($user)
     {
-        $userData = $this->userModel->getUserByEmail($email);
 
-        if ($userData) {
-            $user = new User($userData['email'], $userData['password'], $userData['role']);
-
-            if ($user->verifyPassword($password)) {
-                session_start();
-                $_SESSION['user_id'] = $userData['id'];
-                $_SESSION['username'] = $userData['username'];
-                $_SESSION['role'] = $user->getRole();
-                $_SESSION['is_logged_in'] = true;
-
-                $this->redirectByRole($user->getRole());
-            } else {
-                $this->renderLoginView('Incorrect password.');
+        $result = $this->userModel->findUserByEmailAndPassword($user);
+        $user = $result['user'];
+        if ($user instanceof User) {
+            if ($user->getDeletedAt()) {
+                $_SESSION['error']['message'] = 'Your account was deleted';
+                header("Location: ../auth/login.php");
+                exit();
             }
+
+            if ($user->getStatus() === 'suspendu') {
+                $_SESSION['error']['message'] = 'Your account is not valid yet!!';
+                header("Location: ../auth/login.php");
+                exit();
+            }
+
+            $this->userModel->connectUser($user);
+            $this->createUserSession($result);
+            $this->redirectEffect($user);
         } else {
-            $this->renderLoginView('User not found.');
+            $_SESSION['error']['message'] = 'Invalid email or password';
+            header("Location: ../auth/login.php");
+            exit();
         }
     }
 
-    private function redirectByRole(string $role): void
+    public function signup($user, ...$additionalData)
     {
-        switch ($role) {
-            case 'admin':
-                header("Location: ../../views/pages/admin/admin.php");
-                break;
-            case 'teacher':
-                header("Location: ../pages/enseignant.php");
-                break;
-            case 'student':
-                header("Location: ../pages/etudiants.php");
-                break;
+        try {
+            //create user table
+            $userNew = $this->userModel->createNewUser($user);
+            if ($userNew === 'existe') {
+                $_SESSION['error']['message'] = 'Invalid email already exist';
+                header("Location: ./register.php");
+                exit();
+            }
+            $result = $this->userModel->insertRole($userNew, ...$additionalData);
+            $userInstante = $result['user'];
+            if ($userInstante instanceof User) {
+                $this->userModel->connectUser($userInstante);
+                if ($userInstante->getRole() === 'enseignant') {
+                    $this->userModel->removeValidation($userInstante);
+                    $_SESSION['success']['message'] = 'Created seccesfuly need admin validat';
+                    header("Location: ./login.php");
+                    exit;
+                }
+                $this->createUserSession($result);
+                $this->redirectEffect($userInstante);
+                return true;
+            } else {
+                $_SESSION['error']['message'] = 'Invalid email or password';
+                header("Location: ./register.php");
+                exit();
+            }
+
+        } catch (\Exception $e) {
+            return 'Registration error: ' . $e->getMessage();
         }
-        exit();
     }
 
-    private function renderLoginView(string $error = ''): void
+    public function redirectEffect($user)
     {
-        include __DIR__ . '../../views/login.php';
+        switch ($user->getRole()) {
+            case 'administrateur':
+                header("Location: ../admin/dashboard.php");
+                break;
+            case 'etudiant':
+                header("Location: ../student/home.php");
+                break;
+            case 'enseignant':
+
+                header("Location: ../teacher/home.php");
+                break;
+
+            default:
+                echo 'seccess';
+                // header("Location: login.php?error=Unknown role");
+                break;
+        }
+        exit;
     }
+
+    public function logout()
+    {
+        if (isset($_SESSION['user'])) {
+            $this->userModel->logout($_SESSION['user']['id']);
+            unset($_SESSION['user']);
+            session_destroy();
+            return true;
+        }
+        return false;
+    }
+
+    private function createUserSession($data)
+    {
+        $user = $data['user'];
+        $id_role = $data['id_role'];
+        $_SESSION['user'] = [
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
+            'role' => $user->getRole(),
+            'id' => $user->getId(),
+            'role_id' => $id_role
+        ];
+    }
+
 }

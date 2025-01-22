@@ -1,23 +1,25 @@
 <?php
 
-namespace App\controllers;
+namespace App\Controllers;
 
-use App\models\courseModel;
+interface courseController {
 
-class courseController
-{
-    private courseModel $courseModel;
 
-    public function __construct()
-    {
-        $this->courseModel = new courseModel();
-    }
+    public function createCourse($courseInstent, $selectedTags);
 
-    public function showCourses(): void
-    {
-        $courses = $this->courseModel->getAllCourses();
-        
+    public function deleteCourse($id);
 
-        include __DIR__ . '../../views/pages/course.php'; // Pass data to the view
-    }
+    public function getCourseById($id);
+
+    public function getAllCourse();
+
+    
 }
+
+
+
+
+
+
+
+?>
