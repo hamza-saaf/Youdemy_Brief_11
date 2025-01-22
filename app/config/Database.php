@@ -1,50 +1,35 @@
 <?php
 
-namespace App\config;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace App\Config;
 
 use Dotenv\Dotenv;
 use PDO;
 use PDOException;
-use Exception;
 
 class Database
 {
-    private static ?PDO $conn = null;
+    private $conn = null;
 
-    public static function connection(): PDO
+    public function connect()
     {
-        if (self::$conn === null) {
-            // Load environment variables
-            $dotenv = Dotenv::createImmutable(__DIR__);
-            try {
-                $dotenv->load();
-            } catch (Exception $e) {
-                die("Error loading .env file: " . $e->getMessage());
+        $dotenv = Dotenv::createImmutable(__DIR__. '/../../');
+        $dotenv->load();
+        // Connect to the database 
+        try {
+            if ($this->conn !== null) {
+                // echo 'seccess2';
+                return $this->conn;
+            }else{
+                $this->conn = new PDO("mysql:host=".$_ENV['DB_HOST'].";dbname=".$_ENV['DB_NAME'],$_ENV['DB_USERNAME'],$_ENV['DB_PASSWORD']);
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                // echo 'seccess1';
+                return $this->conn;
             }
-
-            // Establish PDO connection
-            try {
-                self::$conn = new PDO(
-                    "mysql:host=" . $_ENV["LOCALHOST"] . ";dbname=" . $_ENV["DATABASE"],
-                    $_ENV["USER"],
-                    $_ENV["USER_PASSWORD"],
-                    [
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Enable exceptions for errors
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Default fetch mode
-                    ]
-                );
-            } catch (PDOException $e) {
-                die("Connection failed: " . $e->getMessage());
-            }
+        } catch (PDOException $e) {
+            die("Failed to connect with MySQL: " . $e->getMessage());
         }
-
-        return self::$conn;
-    }
-
-    public static function disconnect(): void
-    {
-        self::$conn = null; // Explicitly close the connection
     }
 }
+
+
+?>
