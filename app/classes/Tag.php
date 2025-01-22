@@ -1,54 +1,36 @@
-<?php  
-namespace App\classes;
+<?php 
 
-class Tags {
-    private int $id;
-    private string $name;
 
-    // Constructor
-    public function __construct(int $id, string $name) {
+namespace App\Classes;
+
+class Tag {
+    private $id;
+    private $tag_name;
+
+    public function __construct($id ,$tag_name)
+    {
         $this->id = $id;
-        $this->name = $name;
+        $this->tag_name = $tag_name;
     }
 
-    // Getters
-    public function getId(): int {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getName(): string {
-        return $this->name;
+    public function getTagName()
+    {
+        return $this->tag_name;
     }
 
-    // Setters
-    public function setId(int $id): void {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function setName(string $name): void {
-        $this->name = $name;
+    public function setTagName($tag_name)
+    {
+        $this->tag_name = $tag_name;
     }
-
-    // Other Methods
-    public function createTag(): bool {
-        // Example: Save the tag data to a database
-        echo "Tag '{$this->name}' created successfully!";
-        return true;
-    }
-
-    public function deleteTag(): bool {
-        // Example: Delete the tag data from a database
-        echo "Tag with ID {$this->id} deleted successfully!";
-        return true;
-    }
-
-    public function modifyTag(string $name): bool {
-        $this->setName($name);
-
-        // Example: Update the tag data in a database
-        echo "Tag with ID {$this->id} modified successfully!";
-        return true;
-    }
+    
 }
-
-?>

@@ -1,132 +1,112 @@
 <?php
 
-namespace App\classes;
+namespace App\Classes;
 
-class Course{
-    private int $id;
-    private string $title;
-    private string $image;
-    private string $description;
-    private string $content;
-    private string $video;
-    private string $wallpaper;
+class Course
+{
+    private $id;
+    private $title;
+    private $description;
+    private $contenu_type;
+    private $contenu_url;
+    private $enseignant_id;
+    private $categorie_id;
+    private $date_creation;
 
     // Constructor
-    public function __construct(int $id,string $title,string $image,string $description, string $content,string $video,string $wallpaper ) {
+    public function __construct($id ,$title, $description, $contenu_type, $contenu_url, $enseignant_id, $categorie_id ,$date_creation = null)
+    {
         $this->id = $id;
         $this->title = $title;
-        $this->image = $image;
         $this->description = $description;
-        $this->content = $content;
-        $this->video = $video;
-        $this->wallpaper = $wallpaper;
+        $this->contenu_type = $contenu_type;
+        $this->contenu_url = $contenu_url;
+        $this->enseignant_id = $enseignant_id;
+        $this->categorie_id = $categorie_id;
+        $this->date_creation = $date_creation;
     }
 
     // Getters
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
 
-    public function getImage(): string
-    {
-        return $this->image;
-    }
-
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function getContent(): string
+    public function getContenuType()
     {
-        return $this->content;
+        return $this->contenu_type;
     }
 
-    public function getVideo(): string
+    public function getContenuUrl()
     {
-        return $this->video;
+        return $this->contenu_url;
     }
 
-    public function getWallpaper(): string
+    public function getEnseignantId()
     {
-        return $this->wallpaper;
+        return $this->enseignant_id;
+    }
+
+    public function getCategorieId()
+    {
+        return $this->categorie_id;
+    }
+
+    public function getDateCreation()
+    {
+        return $this->date_creation;
     }
 
     // Setters
-    public function setId(int $id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle($title)
     {
         $this->title = $title;
     }
 
-    public function setImage(string $image): void
-    {
-        $this->image = $image;
-    }
-
-    public function setDescription(string $description): void
+    public function setDescription($description)
     {
         $this->description = $description;
     }
 
-    public function setContent(string $content): void
+    public function setContenuType($contenu_type)
     {
-        $this->content = $content;
+        $this->contenu_type = $contenu_type;
     }
 
-    public function setVideo(string $video): void
+    public function setContenuUrl($contenu_url)
     {
-        $this->video = $video;
+        $this->contenu_url = $contenu_url;
     }
 
-    public function setWallpaper(string $wallpaper): void
+    public function setEnseignantId($enseignant_id)
     {
-        $this->wallpaper = $wallpaper;
+        $this->enseignant_id = $enseignant_id;
     }
 
-    // Other Methods
-    public function createCourse(): bool
+    public function setCategorieId($categorie_id)
     {
-        // Example: Save the course data to a database
-        echo "Course '{$this->title}' created successfully with Image '{$this->image}' and Video '{$this->video}'!";
-        return true;
+        $this->categorie_id = $categorie_id;
     }
 
-    public function deleteCourse(): bool
+    public function setDateCreation($date_creation)
     {
-        // Example: Delete the course data from a database
-        echo "Course with ID {$this->id} deleted successfully!";
-        return true;
+        $this->date_creation = $date_creation;
     }
-
-    public function modifyCourse(
-        string $title,
-        string $image,
-        string $description,
-        string $content,
-        string $video,
-        string $wallpaper
-    ): bool {
-        $this->setTitle($title);
-        $this->setImage($image);
-        $this->setDescription($description);
-        $this->setContent($content);
-        $this->setVideo($video);
-        $this->setWallpaper($wallpaper);
-
-        // Example: Update the course data in a database
-        echo "Course with ID {$this->id} modified successfully!";
-        return true;
-    }
-    
 }
+
+?>

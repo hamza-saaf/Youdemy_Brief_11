@@ -1,54 +1,41 @@
-<?php
-namespace App\classes;
+<?php 
+
+namespace App\Classes;
 
 class Categorie {
-    private int $id;
-    private string $name;
+    private $id;
+    private $category_name;
 
-    // Constructor
-    public function __construct(int $id, string $name) {
+    public function __construct($id ,$category_name)
+    {
         $this->id = $id;
-        $this->name = $name;
+        $this->category_name = $category_name;
     }
 
-    // Getters
-    public function getId(): int {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getName(): string {
-        return $this->name;
+    public function getCategoryName()
+    {
+        return $this->category_name;
     }
 
-    // Setters
-    public function setId(int $id): void {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function setName(string $name): void {
-        $this->name = $name;
+    public function setCategoryName($category_name)
+    {
+        $this->category_name = $category_name;
     }
-
-    // Other Methods
-    public function createCategorie(): bool {
-        // Example: Save the category data to a database
-        echo "Category '{$this->name}' created successfully!";
-        return true;
-    }
-
-    public function deleteCategorie(): bool {
-        // Example: Delete the category data from a database
-        echo "Category with ID {$this->id} deleted successfully!";
-        return true;
-    }
-
-    public function modifyCategorie(string $name): bool {
-        $this->setName($name);
-
-        // Example: Update the category data in a database
-        echo "Category with ID {$this->id} modified successfully!";
-        return true;
-    }
+    
 }
+
+
+
+
 
 ?>

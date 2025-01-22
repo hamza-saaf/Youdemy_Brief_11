@@ -1,101 +1,104 @@
-<?php
-namespace App\classes;
+<?php 
 
-class User {
-    private int $id;
-    private string $name;
-    private string $email;
-    private string $password;
-    private string $role;
-    private string $status;
+namespace App\Classes;
 
-    // Constructor
-    public function __construct(int $id, string $name, string $email, string $password, string $role, string $status) {
+class User{
+
+    protected $id;
+    protected $name;
+    protected $email;
+    protected $password;
+    protected $role;
+    protected $isActive;
+    protected $statut;
+    protected $date_creation;
+    protected $deletedAt;
+
+    public function __construct($id, $name, $email, $password, $role = null, $isActive = null, $statut = null, $date_creation = null, $deletedAt = null) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
-        $this->status = $status;
+        $this->isActive = $isActive;
+        $this->statut = $statut;
+        $this->date_creation = $date_creation;
+        $this->deletedAt = $deletedAt;
     }
 
-    // Getters
-    public function getId(): int {
+    public function getId() {
         return $this->id;
     }
 
-    public function getName(): string {
+    public function getName() {
         return $this->name;
     }
 
-    public function getEmail(): string {
+    public function getEmail() {
         return $this->email;
     }
 
-    public function getPassword(): string {
+    public function getPassword() {
         return $this->password;
     }
 
-    public function getRole(): string {
+    public function getRole() {
         return $this->role;
     }
 
-    public function getStatus(): string {
-        return $this->status;
+    public function getIsActive() {
+        return $this->isActive;
+    }
+    
+    public function getStatus() {
+        return $this->statut;
     }
 
-    // Setters
-    public function setId(int $id): void {
+    public function getDateCreation() {
+        return $this->date_creation;
+    }
+    public function getDeletedAt() {
+        return $this->deletedAt;
+    }
+
+    public function setId($id) {
         $this->id = $id;
     }
 
-    public function setName(string $name): void {
+    public function setName($name) {
         $this->name = $name;
     }
 
-    public function setEmail(string $email): void {
+    public function setEmail($email) {
         $this->email = $email;
     }
 
-    public function setPassword(string $password): void {
+    public function setPassword($password) {
         $this->password = $password;
     }
 
-    public function setRole(string $role): void {
+    public function setRole($role) {
         $this->role = $role;
     }
 
-    public function setStatus(string $status): void {
-        $this->status = $status;
+    public function setIsActive($isActive) {
+        $this->isActive = $isActive;
+    }
+    
+    public function setStatus($statut) {
+        $this->statut = $statut;
     }
 
-    // Other Methods
-    public function createUser(): bool {
-        // Example: Save user to the database
-        echo "User '{$this->name}' created successfully!";
-        return true;
+    public function setDateCreation($date_creation) {
+        $this->date_creation = $date_creation;
+    }
+    public function setDeletedAt($deletedAt) {
+        $this->deletedAt = $deletedAt;
     }
 
-    public function getUserByEmail(string $email): ?User {
-        // Example: Simulate fetching user by email from a database
-        if ($email === $this->email) {
-            echo "User with email '{$email}' found.";
-            return $this; // Returning the current user as an example
-        } else {
-            echo "User with email '{$email}' not found.";
-            return null;
-        }
-    }
 
-    public function approveTeacher(): bool {
-        if ($this->role === 'teacher' && $this->status === 'pending') {
-            $this->status = 'approved';
-            echo "Teacher '{$this->name}' approved successfully!";
-            return true;
-        }
-        echo "Unable to approve user '{$this->name}'.";
-        return false;
-    }
 }
+
+
 
 ?>
