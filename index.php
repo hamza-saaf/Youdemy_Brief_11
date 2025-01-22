@@ -1,3 +1,58 @@
+<?php
+
+session_start();
+if (isset($_SESSION['user']) ) {
+    switch ($_SESSION['user']['role']) {
+        case 'etudiant':
+            header('Location: ..\app\Views\student\home.php');
+            break;
+        
+        case 'enseignant':
+            header('Location: ..\app\Views\student\home.php');
+            break;
+        
+        case 'administrateur':
+            header('Location: ..\app\Views\student\dashboard.php');
+            break;
+        
+        default:
+            # code...
+            break;
+    }
+}
+
+
+require_once './vendor/autoload.php';
+
+use App\Controllers\TeacherController;
+
+$TeacherController = new TeacherController();
+
+$countData = $TeacherController->getCountCourses();
+
+$rowsPerPage = 3;
+$currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+if ($currentPage < 1)
+    $currentPage = 1;
+
+$totalPages = ceil($countData / $rowsPerPage);
+$offset = ($currentPage - 1) * $rowsPerPage;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $inputData = $_POST['inputSearch'];
+    $ComplexData = $TeacherController->searchFunction($inputData);
+} else {
+    $ComplexData = $TeacherController->getPage($rowsPerPage, $offset, null);
+}
+
+if (isset($_GET['coursID'])) {
+    $etudiantId = $_SESSION['user']['role_id'];
+    $TeacherController->creatInscription($_GET['coursID'], $etudiantId);
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
