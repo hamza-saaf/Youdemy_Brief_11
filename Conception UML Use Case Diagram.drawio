@@ -405,7 +405,7 @@
         <mxCell id="hACApUYPOhQLSXuNLxnd-4" value="&lt;font style=&quot;font-size: 72px;&quot;&gt;Class diagram&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-2330" y="50" width="1020" height="190" as="geometry" />
         </mxCell>
-        <mxCell id="Ft1ywpDL2BrJYmqAD0A--1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Administratuer&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- id: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- course:string&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-  enrolled_at:date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fontSize=50;" vertex="1" parent="1">
+        <mxCell id="Ft1ywpDL2BrJYmqAD0A--1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Administratuer&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+validerEnseignant&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+gereUtilisateurs()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+genereStatistiques()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fontSize=50;" vertex="1" parent="1">
           <mxGeometry x="-1440" y="1540" width="570" height="500" as="geometry" />
         </mxCell>
         <mxCell id="Ft1ywpDL2BrJYmqAD0A--2" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;fontSize=999;labelBorderColor=default;labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);textShadow=1;fontColor=light-dark(#000000,#FF0000);entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="B7ksqkiBwN_cq7KMYljf-3" target="B7ksqkiBwN_cq7KMYljf-1">
@@ -423,7 +423,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Ft1ywpDL2BrJYmqAD0A--6" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Etudiant&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- niveau&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+voirCoursInscrits()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fontSize=50;" vertex="1" parent="1">
-          <mxGeometry x="-200" y="500" width="570" height="410" as="geometry" />
+          <mxGeometry x="-450" y="500" width="570" height="410" as="geometry" />
         </mxCell>
         <mxCell id="Ft1ywpDL2BrJYmqAD0A--7" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.005;exitY=0.099;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.014;entryY=0.076;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Ft1ywpDL2BrJYmqAD0A--6" target="B7ksqkiBwN_cq7KMYljf-2">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -449,17 +449,18 @@
             <mxPoint x="-1160" y="3020" as="sourcePoint" />
             <mxPoint x="-1220" y="980" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="90" y="2890" />
+              <mxPoint x="-150" y="2890" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="Ft1ywpDL2BrJYmqAD0A--14" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;inscription&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-date&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+suncrireAucour()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fontSize=50;" vertex="1" parent="1">
-          <mxGeometry x="630" y="1590" width="570" height="500" as="geometry" />
+          <mxGeometry x="180" y="1320" width="570" height="500" as="geometry" />
         </mxCell>
-        <mxCell id="Ft1ywpDL2BrJYmqAD0A--16" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="Ft1ywpDL2BrJYmqAD0A--16" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=-0.035;entryY=0.08;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="Ft1ywpDL2BrJYmqAD0A--14">
           <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="100" y="1800" as="sourcePoint" />
-            <mxPoint x="647" y="1800" as="targetPoint" />
+            <mxPoint x="-160" y="1360" as="sourcePoint" />
+            <mxPoint x="610" y="1810" as="targetPoint" />
+            <Array as="points" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Ft1ywpDL2BrJYmqAD0A--17" value="Text" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Ft1ywpDL2BrJYmqAD0A--16">
